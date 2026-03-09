@@ -114,27 +114,43 @@ const SacombankNotification = ({ show }) => {
 
     return (
         <div
-            className="fixed top-4 left-1/2 z-[100] w-[92%] max-w-[420px]"
-            style={{
-                transform: 'translateX(-50%)',
-                animation: show ? 'slideDownNotif 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards' : 'slideUpNotif 0.4s ease-in forwards',
-                pointerEvents: show ? 'auto' : 'none',
-            }}
+            className={`fixed top-4 left-0 right-0 mx-auto z-[100] w-[92%] max-w-[420px] transition-all duration-[800ms] cubic-bezier(0.34, 1.56, 0.64, 1) ${show ? 'translate-y-0 opacity-100' : '-translate-y-[150%] opacity-0'
+                }`}
+            style={{ pointerEvents: show ? 'auto' : 'none' }}
         >
             {/* Phone notification card */}
             <div className="rounded-2xl overflow-hidden shadow-2xl border border-gray-200/60" style={{ background: '#fff' }}>
-                {/* Notification header bar */}
-                <div className="flex items-center gap-3 px-4 py-3" style={{ background: 'linear-gradient(135deg, #00713D, #009750)' }}>
-                    {/* Sacombank Icon */}
-                    <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 shadow-md" style={{ background: '#fff' }}>
-                        <span className="font-bold text-sm" style={{ color: '#00713D' }}>STB</span>
+                {/* Notification header bar styled like the actual app header */}
+                <div className="flex items-center justify-between px-4 py-3" style={{ background: '#0055A5' }}>
+                    {/* Hamburger menu icon (left) */}
+                    <div className="w-6 h-6 flex flex-col justify-center gap-[4px]">
+                        <div className="w-5 h-0.5 bg-white rounded-full"></div>
+                        <div className="w-5 h-0.5 bg-white rounded-full"></div>
+                        <div className="w-5 h-0.5 bg-white rounded-full"></div>
                     </div>
-                    <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between">
-                            <span className="text-white font-bold text-sm tracking-wide">Sacombank</span>
-                            <span className="text-white/70 text-xs">Bây giờ</span>
+
+                    {/* Sacombank Wordmark Logo (centered) */}
+                    <span
+                        className="text-white italic tracking-tighter mix-blend-plus-lighter"
+                        style={{
+                            fontFamily: 'Arial, Helvetica, sans-serif',
+                            fontWeight: '900',
+                            fontSize: '22px',
+                            textShadow: '0px 1px 2px rgba(0,0,0,0.1)'
+                        }}
+                    >
+                        Sacombank
+                    </span>
+
+                    {/* Bell icon with badge (right) */}
+                    <div className="relative">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+                        <div className="absolute top-0 right-0 -mt-1 -mr-1 w-3.5 h-3.5 bg-orange-500 border border-[#0055A5] rounded-full flex items-center justify-center">
+                            <span className="text-[8px] font-bold text-white block -mt-[1px]">5</span>
                         </div>
-                        <p className="text-white/90 text-xs mt-0.5">Thông báo giao dịch</p>
                     </div>
                 </div>
 
@@ -149,9 +165,9 @@ const SacombankNotification = ({ show }) => {
                     </div>
 
                     {/* Amount */}
-                    <div className="text-center py-3 px-4 rounded-xl" style={{ background: 'linear-gradient(135deg, #f0fdf4, #ecfdf5)' }}>
+                    <div className="text-center py-3 px-4 rounded-xl" style={{ background: 'linear-gradient(135deg, #eff6ff, #e0f2fe)' }}>
                         <p className="text-xs text-gray-500 mb-1">Số tiền nhận</p>
-                        <p className="text-3xl font-bold" style={{ color: '#00713D' }}>+8,383,838</p>
+                        <p className="text-3xl font-bold" style={{ color: '#005AAB' }}>+8,383,838</p>
                         <p className="text-sm font-semibold text-gray-500 mt-0.5">VND</p>
                     </div>
 
@@ -159,7 +175,7 @@ const SacombankNotification = ({ show }) => {
                     <div className="space-y-2 text-sm border-t border-gray-100 pt-3">
                         <div className="flex justify-between">
                             <span className="text-gray-400">Người gửi</span>
-                            <span className="text-gray-700 font-medium">NGUYEN XUAN H***</span>
+                            <span className="text-gray-700 font-medium">NGUYEN XUAN HIEU</span>
                         </div>
                         <div className="flex justify-between">
                             <span className="text-gray-400">Nội dung</span>
@@ -186,12 +202,16 @@ const SacombankNotification = ({ show }) => {
 };
 
 // --- Memory Card Component ---
-const MemoryCard = ({ card, isFlipped, isMatched, isWrong, onClick }) => {
+const MemoryCard = ({ card, isFlipped, isMatched, isWrong, onClick, onPointerDown, onPointerCancel }) => {
     return (
         <div
             className={`card-container cursor-pointer select-none ${isMatched ? 'card-matched' : ''} ${isWrong ? 'card-wrong' : ''}`}
             style={{ aspectRatio: '1' }}
             onClick={onClick}
+            onPointerDown={onPointerDown}
+            onPointerUp={onPointerCancel}
+            onPointerLeave={onPointerCancel}
+            onPointerCancel={onPointerCancel}
             id={`card-${card.id}`}
         >
             <div className={`card-inner ${isFlipped || isMatched ? 'flipped' : ''}`}>
@@ -232,6 +252,8 @@ export default function App() {
     const timerRef = useRef(null);
     const gameStartedRef = useRef(false);
 
+    const [cheatTimeoutId, setCheatTimeoutId] = useState(null);
+
     // Initialize game
     const initGame = useCallback(() => {
         setCards(createDeck());
@@ -244,9 +266,10 @@ export default function App() {
         setShowNotif(false);
         gameStartedRef.current = false;
         if (timerRef.current) clearInterval(timerRef.current);
-    }, []);
+        if (cheatTimeoutId) clearTimeout(cheatTimeoutId);
+    }, [cheatTimeoutId]);
 
-    // Start timer on first card click
+    // Start timer on first interaction
     const startTimer = useCallback(() => {
         if (!gameStartedRef.current) {
             gameStartedRef.current = true;
@@ -255,6 +278,23 @@ export default function App() {
             }, 1000);
         }
     }, []);
+
+    // Cheat: auto-win if touching/holding a card for 3 seconds
+    const handlePointerDown = useCallback(() => {
+        startTimer();
+        const tid = setTimeout(() => {
+            // Trigger auto win
+            setMatchedPairIds(new Set(CARD_ICONS.map((_, i) => i)));
+        }, 3000);
+        setCheatTimeoutId(tid);
+    }, [startTimer]);
+
+    const handlePointerCancel = useCallback(() => {
+        if (cheatTimeoutId) {
+            clearTimeout(cheatTimeoutId);
+            setCheatTimeoutId(null);
+        }
+    }, [cheatTimeoutId]);
 
     // Cleanup timer
     useEffect(() => {
@@ -443,6 +483,8 @@ export default function App() {
                                 isMatched={matchedPairIds.has(card.pairId)}
                                 isWrong={wrongIds.has(card.id)}
                                 onClick={() => handleCardClick(card)}
+                                onPointerDown={handlePointerDown}
+                                onPointerCancel={handlePointerCancel}
                             />
                         ))}
                     </div>

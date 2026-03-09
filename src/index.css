@@ -1,8 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
 
 * {
   margin: 0;
@@ -57,45 +57,95 @@ body {
 
 /* Floating hearts */
 @keyframes floatHeart {
-  0% { transform: translateY(0) scale(1); opacity: 0; }
-  15% { opacity: 0.5; }
-  100% { transform: translateY(-100vh) scale(1.4); opacity: 0; }
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0;
+  }
+
+  15% {
+    opacity: 0.5;
+  }
+
+  100% {
+    transform: translateY(-100vh) scale(1.4);
+    opacity: 0;
+  }
 }
 
 /* Fade in up */
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 /* Notification slide in */
 @keyframes slideDownNotif {
-  0% { transform: translateY(-120%); opacity: 0; }
-  60% { transform: translateY(8px); opacity: 1; }
-  100% { transform: translateY(0); opacity: 1; }
+  0% {
+    transform: translateY(-120%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 @keyframes slideUpNotif {
-  0% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(-120%); opacity: 0; }
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-120%);
+    opacity: 0;
+  }
 }
 
 /* Confetti */
 @keyframes confettiFall {
-  0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
-  100% { transform: translateY(110vh) rotate(720deg); opacity: 0.3; }
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(110vh) rotate(720deg);
+    opacity: 0.3;
+  }
 }
 
 /* Card matched glow */
 @keyframes matchGlow {
-  0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.6); }
-  50% { box-shadow: 0 0 20px 8px rgba(244, 63, 94, 0.3); }
-  100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
+  0% {
+    box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.6);
+  }
+
+  50% {
+    box-shadow: 0 0 20px 8px rgba(244, 63, 94, 0.3);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(244, 63, 94, 0);
+  }
 }
 
 .card-matched {
@@ -104,17 +154,40 @@ body {
 
 /* Pulse scale */
 @keyframes pulseScale {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.08); }
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.08);
+  }
 }
 
 /* Shake animation for wrong match */
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  20% { transform: translateX(-6px); }
-  40% { transform: translateX(6px); }
-  60% { transform: translateX(-4px); }
-  80% { transform: translateX(4px); }
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  20% {
+    transform: translateX(-6px);
+  }
+
+  40% {
+    transform: translateX(6px);
+  }
+
+  60% {
+    transform: translateX(-4px);
+  }
+
+  80% {
+    transform: translateX(4px);
+  }
 }
 
 .card-wrong {
@@ -123,6 +196,13 @@ body {
 
 /* Star burst on match */
 @keyframes starBurst {
-  0% { transform: scale(0) rotate(0); opacity: 1; }
-  100% { transform: scale(2) rotate(180deg); opacity: 0; }
+  0% {
+    transform: scale(0) rotate(0);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(2) rotate(180deg);
+    opacity: 0;
+  }
 }
